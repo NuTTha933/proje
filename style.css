@@ -1,0 +1,680 @@
+
+
+
+/* ==========================================================================
+   เหตุผลที่ใช้: กำหนดโทนสีหลักไว้ที่เดียวใน :root แล้วเรียกใช้ผ่าน var(--ชื่อ)
+   ทั่วทั้งไฟล์ ถ้าอยากเปลี่ยนธีมสีร้านทั้งเว็บ แก้แค่ตรงนี้ที่เดียวพอ
+   ไม่ต้องไล่เปลี่ยนทีละบรรทัดทั้งไฟล์ ช่วยให้โค้ด "ดูแลง่าย"
+   ========================================================================== */
+:root {
+  --color-espresso: #3B2A20;   
+  --color-clay:     #B5601F;   
+  --color-sage:     #6E7B54;   
+  --color-cream:    #F6EEE1;   
+  --color-latte:    #E4D3B8;   
+  --color-white:    #FFFFFF;
+
+  /* --- ตัวแปรฟอนต์ --- */
+  --font-display: 'Fraunces', serif;      /* ฟอนต์หัวข้อ ตัวเซริฟหนา มีคาแรกเตอร์ ใช้กับ h1/h2/โลโก้ */
+  --font-body: 'Work Sans', sans-serif;   /* ฟอนต์เนื้อหา อ่านง่าย ใช้กับ paragraph/label/ปุ่ม */
+
+  /* --- ระยะและความโค้งมาตรฐาน เก็บไว้เป็นตัวแปรเพื่อความสม่ำเสมอ --- */
+  --radius-card: 18px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 10px 30px rgba(59, 42, 32, 0.12);
+  --transition-fast: 0.25s ease;  /* ใช้กับทุก hover effect เพื่อให้การเปลี่ยนสี/ขยับดู */
+}
+
+
+/* ==========================================================================
+   2) RESET / BASE — ล้างค่าพื้นฐานของเบราว์เซอร์
+   เหตุผล: แต่ละเบราว์เซอร์ตั้งค่า margin/padding เริ่มต้นไม่เหมือนกัน
+   เราจึงล้างค่าก่อน แล้วค่อยกำหนดเองทั้งหมด เพื่อให้หน้าตาตรงกันทุกเครื่อง
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* ทำให้ padding/border ถูกนับรวมอยู่ใน width ที่กำหนด ไม่ทำให้ layout เพี้ยน */
+}
+
+html {
+  scroll-behavior: smooth; /* เวลากดลิงก์ภายในหน้าเดียวกัน (เช่น #) จะเลื่อนแบบนุ่มนวล */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-espresso);
+  background-color: var(--color-cream);
+  line-height: 1.6; /* ระยะห่างบรรทัด อ่านสบายตา */
+}
+
+img {
+  max-width: 100%;
+  display: block; /* กัน image เว้นช่องว่างด้านล่างแบบ inline element */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  /* กล่องกลางหน้าจอ ใช้ครอบเนื้อหาแต่ละ section ไม่ให้กว้างจนอ่านยากบนจอใหญ่ */
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0; /* ระยะห่างบน-ล่างมาตรฐานของทุก section ให้หายใจสะดวก ไม่แน่นเกินไป */
+}
+
+
+/* ==========================================================================
+   3) NAVBAR — เมนูบนสุดของทุกหน้า
+   เทคนิคที่ใช้: FLEXBOX (จุดที่ 1) → ใช้จัดโลโก้ให้ชิดซ้าย และเมนูให้ชิดขวา
+   ในบรรทัดเดียวกันโดยไม่ต้อง float หรือคำนวณตำแหน่งเอง
+   ========================================================================== */
+.navbar {
+  position: sticky; /* ทำให้ navbar ลอยค้างอยู่บนสุดตอนเลื่อนหน้าจอ ใช้งานสะดวก */
+  top: 0;
+  background-color: var(--color-cream);
+  border-bottom: 1px solid var(--color-latte);
+}
+
+.navbar .container {
+  display: flex;              /* <-- FLEXBOX จุดที่ 1: จัดแนวนอนระหว่างโลโก้กับเมนู */
+  align-items: center;        /* จัดกึ่งกลางแนวตั้ง ให้โลโก้กับเมนูอยู่ระดับเดียวกัน */
+  justify-content: space-between; /* ดันโลโก้ไปซ้ายสุด และเมนูไปขวาสุดอัตโนมัติ */
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.logo {
+  display: flex;        /* ใช้ flex ย่อยอีกชั้น เพื่อวางรูปโลโก้กับชื่อร้านให้อยู่บรรทัดเดียวกัน */
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-espresso);
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.nav-links {
+  display: flex;  /* จัดลิงก์เมนู 3 อันให้เรียงแนวนอน */
+  gap: 32px;
+}
+
+.nav-links a {
+  font-weight: 500;
+  position: relative;
+  padding: 4px 2px;
+  transition: color var(--transition-fast); /* hover เปลี่ยนสีแบบนุ่มนวล */
+}
+
+/* เส้นใต้ลิงก์ที่ค่อยๆ ขยายตอน hover — เป็น hover effect ของเมนูตามข้อบังคับข้อ 7 */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-clay);
+  transition: width var(--transition-fast);
+}
+
+.nav-links a:hover {
+  color: var(--color-clay);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a.active {
+  color: var(--color-clay); /* ไฮไลต์เมนูของหน้าปัจจุบัน ให้ผู้ใช้รู้ว่ากำลังอยู่หน้าไหน */
+}
+
+/* ปุ่มแฮมเบอร์เกอร์สำหรับจอมือถือ ปกติซ่อนไว้ จะโชว์ใน media query ด้านล่าง (ส่วน Responsive) */
+.nav-toggle {
+  display: none;
+}
+
+
+/* ==========================================================================
+   4) HERO SECTION — หน้าแรกสุดที่คนเห็นก่อนใคร (เฉพาะ index.html)
+   เทคนิคที่ใช้: Flexbox แบ่งครึ่งซ้าย(ข้อความ)-ขวา(รูป) และ background gradient
+   ========================================================================== */
+.hero .container {
+  display: flex;              /* แบ่งซ้าย-ขวา: ข้อความ vs รูปประกอบ */
+  align-items: center;
+  gap: 48px;
+}
+
+.hero-text {
+  flex: 1; /* ให้ฝั่งข้อความยืดหดตามพื้นที่ที่เหลือ */
+}
+
+.hero-text h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.4rem); /* ขนาดฟอนต์ปรับตามความกว้างจอโดยอัตโนมัติ */
+  line-height: 1.15;
+  margin-bottom: 20px;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  max-width: 480px;
+  margin-bottom: 32px;
+  color: #5a4636;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+/* ปุ่ม Call To Action ที่ใช้ซ้ำได้หลายจุดในเว็บ (ปุ่มไปเมนู, ปุ่มไปหน้าติดต่อ, ปุ่มส่งฟอร์ม) */
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--color-clay);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: #9c5119; /* เข้มขึ้นตอน hover */
+  transform: translateY(-3px); /* ปุ่มขยับลอยขึ้นเล็กน้อยตอนชี้เมาส์ = hover effect */
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--color-espresso);
+  color: var(--color-espresso);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-espresso);
+  color: var(--color-white);
+}
+
+/* ปุ่ม outline เวอร์ชันสีอ่อน ใช้เฉพาะบนพื้นหลังเข้ม เช่นแถบ CTA สีเอสเพรสโซ่
+   (แยกคลาสนี้ออกมาแทนการใส่ inline style ตรงแท็ก a เพราะโจทย์ห้าม inline style) */
+.btn-outline-light {
+  background-color: transparent;
+  border: 2px solid var(--color-cream);
+  color: var(--color-cream);
+}
+
+.btn-outline-light:hover {
+  background-color: var(--color-cream);
+  color: var(--color-espresso);
+}
+
+
+/* ==========================================================================
+   5) FEATURES SECTION — จุดเด่นของร้าน (การ์ดอย่างน้อย 3 ใบ)
+   เทคนิคที่ใช้: CSS GRID (จุดที่ 1) → ให้การ์ดเรียงเป็นแถวเท่าๆ กันอัตโนมัติ
+   และย่อ/ขยายจำนวนคอลัมน์เองตามพื้นที่จอ โดยไม่ต้องกำหนดจำนวนคอลัมน์ตายตัว
+   ========================================================================== */
+.section-heading {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-heading .eyebrow {
+  color: var(--color-clay);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.section-heading h2 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  margin-top: 8px;
+}
+
+.features-grid {
+  display: grid; /* <-- GRID จุดที่ 1 */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* กี่คอลัมน์ก็ได้ตามที่พอดีจอ ไม่ล้น */
+  gap: 32px;
+}
+
+.feature-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 32px 28px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-fast); /* การ์ดลอยขึ้นตอน hover */
+}
+
+.feature-card:hover {
+  transform: translateY(-8px);
+}
+
+.feature-card img {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 20px;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+}
+
+.feature-card p {
+  font-size: 0.95rem;
+  color: #5a4636;
+}
+
+
+/* ==========================================================================
+   6) TESTIMONIALS SECTION — รีวิวจากลูกค้า (อย่างน้อย 2 รีวิว)
+   เทคนิคที่ใช้: Grid จัดวางการ์ดรีวิว + border-radius: 50% ทำรูปโปรไฟล์ให้เป็นวงกลม
+   ========================================================================== */
+.testimonials {
+  background-color: var(--color-latte);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.testimonial-card {
+  background-color: var(--color-cream);
+  border-radius: var(--radius-card);
+  padding: 28px;
+}
+
+.testimonial-card p.quote {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex; /* จัดรูปวงกลม + ชื่อลูกค้าให้อยู่แนวเดียวกัน */
+  align-items: center;
+  gap: 14px;
+}
+
+.testimonial-author img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%; /* <-- คำสั่งสำคัญตามโจทย์: ทำรูปโปรไฟล์เป็นวงกลม */
+  object-fit: cover;
+}
+
+.testimonial-author strong {
+  display: block;
+}
+
+.testimonial-author span {
+  font-size: 0.85rem;
+  color: #5a4636;
+}
+
+
+/* ==========================================================================
+   7) CTA SECTION (หน้าแรก) — ชวนลูกค้ากดไปหน้าติดต่อเรา
+   ใช้สีพื้นหลังต่างจาก section อื่น (สีเข้มของร้าน) เพื่อให้เด่นตามโจทย์
+   ========================================================================== */
+.cta-band {
+  background-color: var(--color-espresso);
+  color: var(--color-cream);
+  text-align: center;
+}
+
+.cta-band h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+
+.cta-band p {
+  margin-bottom: 28px;
+  color: #d8c9b8;
+}
+
+
+/* ==========================================================================
+   8) FOOTER — ท้ายเว็บ เหมือนกันทุกหน้า
+   เทคนิคที่ใช้: Flexbox จัด 3 คอลัมน์ย่อย (ชื่อร้าน / เมนูลัด / โซเชียล)
+   ========================================================================== */
+.footer {
+  background-color: var(--color-espresso);
+  color: #cbb9a4;
+  padding: 56px 0 24px;
+}
+
+.footer .container {
+  display: flex; /* <-- FLEXBOX จุดที่ 2: จัดคอลัมน์ footer ให้เรียงแนวนอนบนจอใหญ่ */
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap; /* ถ้าจอแคบให้ตกบรรทัดแทนที่จะบีบจนอ่านไม่ออก */
+  padding-bottom: 32px;
+  border-bottom: 1px solid #55432f;
+}
+
+.footer-col h4 {
+  font-family: var(--font-display);
+  color: var(--color-cream);
+  margin-bottom: 14px;
+}
+
+.footer-col p,
+.footer-col a {
+  font-size: 0.92rem;
+  display: block;
+  margin-bottom: 8px;
+  transition: color var(--transition-fast);
+}
+
+.footer-col a:hover {
+  color: var(--color-clay); /* hover effect ของลิงก์ใน footer */
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #55432f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.social-links a:hover {
+  background-color: var(--color-clay);
+  transform: translateY(-3px);
+  border-color: var(--color-clay);
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 0.85rem;
+  color: #9c8a76;
+}
+
+
+/* ==========================================================================
+   9) PAGE HEADER — ส่วนหัวของหน้า menu.html และ contact.html
+   (ไม่ใช่หน้าแรกเพราะหน้าแรกมี Hero ของตัวเองอยู่แล้ว)
+   ========================================================================== */
+.page-header {
+  background-color: var(--color-latte);
+  text-align: center;
+  padding: 64px 0;
+}
+
+.page-header h1 {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  margin-bottom: 12px;
+}
+
+
+/* ==========================================================================
+   10) PRODUCT GRID — หน้า menu.html (การ์ดสินค้าอย่างน้อย 6 ใบ, อย่างน้อย 3 คอลัมน์)
+   เทคนิคที่ใช้: CSS GRID (จุดที่ 2) กำหนดตายตัว 3 คอลัมน์บนจอใหญ่
+   ========================================================================== */
+.product-grid {
+  display: grid; /* <-- GRID จุดที่ 2 */
+  grid-template-columns: repeat(3, 1fr); /* บังคับ 3 คอลัมน์ตามโจทย์ */
+  gap: 32px;
+}
+
+.product-card {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast); /* hover effect ตามโจทย์ */
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 34px rgba(59, 42, 32, 0.2);
+}
+
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 20px;
+}
+
+.product-info h3 {
+  font-family: var(--font-display);
+  margin-bottom: 6px;
+}
+
+.product-info p {
+  font-size: 0.9rem;
+  color: #5a4636;
+  margin-bottom: 14px;
+}
+
+.product-price {
+  display: flex; /* จัดราคาให้ชิดขวาในบรรทัดเดียวกับป้าย "ราคา" */
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  color: var(--color-clay);
+  font-size: 1.1rem;
+}
+
+
+/* ==========================================================================
+   11) PROMOTION BANNER — แถบโปรโมชั่นในหน้า menu.html
+   ใช้สีพื้นหลังเด่น (สีเซจ) ต่างจากพื้นหลังเว็บปกติ
+   ========================================================================== */
+.promo-banner {
+  background-color: var(--color-sage);
+  color: var(--color-white);
+  text-align: center;
+  padding: 28px 0;
+}
+
+.promo-banner p {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+}
+
+
+/* ==========================================================================
+   12) CONTACT PAGE — หน้า contact.html
+   ========================================================================== */
+.contact-layout {
+  display: flex; /* วางฝั่งข้อมูลติดต่อกับฝั่งฟอร์มให้อยู่คนละครึ่งของจอ */
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.contact-info,
+.contact-form-wrap {
+  flex: 1;
+}
+
+/* หัวข้อย่อยของบล็อกในหน้า contact.html เช่น "ข้อมูลติดต่อ" และ "ส่งข้อความถึงเรา"
+   (แยกเป็นคลาสนี้แทนการใส่ inline style เพราะโจทย์ห้าม inline style) */
+.block-title {
+  font-family: var(--font-display);
+  margin-bottom: 20px;
+}
+
+.contact-info ul {
+  margin-top: 20px;
+}
+
+.contact-info li {
+  display: flex; /* จัดไอคอน + ข้อความให้อยู่แนวเดียวกันในแต่ละบรรทัดข้อมูล */
+  gap: 14px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.contact-info li .icon-dot {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background-color: var(--color-clay);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* --- ฟอร์มติดต่อ: ทำแค่หน้าตา ไม่เชื่อมต่อฐานข้อมูลจริงตามโจทย์ --- */
+.contact-form-wrap {
+  background-color: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 32px;
+  box-shadow: var(--shadow-soft);
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-latte);
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  background-color: var(--color-cream);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+/* focus = ผู้ใช้กำลังพิมพ์อยู่ในช่องนั้น ให้ขอบเปลี่ยนสีเพื่อบอกสถานะชัดเจน */
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-clay);
+  box-shadow: 0 0 0 3px rgba(181, 96, 31, 0.15);
+}
+
+.map-section iframe {
+  width: 100%;
+  height: 340px;
+  border: 0;
+  border-radius: var(--radius-card);
+}
+
+
+/* ==========================================================================
+   13) RESPONSIVE / MEDIA QUERY — Bonus +10
+   เหตุผล: ทำให้เว็บใช้งานได้ดีบนจอมือถือ (ไม่ใช่แค่ย่อของจอใหญ่)
+   จุดที่ปรับ: navbar พับเป็นเมนูแนวตั้ง, hero/contact กลับมาเรียงเป็นแนวตั้ง,
+   product grid ลดคอลัมน์ลงตามความกว้างจอ
+   ========================================================================== */
+@media (max-width: 900px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* จอแท็บเล็ต: ลดจาก 3 เหลือ 2 คอลัมน์ */
+  }
+
+  .contact-layout {
+    flex-direction: column; /* จอแคบ: ข้อมูลติดต่อกับฟอร์มเรียงต่อกันแนวตั้งแทนซ้าย-ขวา */
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar .container {
+    flex-wrap: wrap;
+  }
+
+  /* หมายเหตุ: โจทย์ห้ามใช้ JavaScript จึงไม่ทำปุ่มแฮมเบอร์เกอร์แบบเปิด-ปิดเมนู
+     แต่ให้เมนูตกลงมาอยู่แถวใหม่ใต้โลโก้แทน ด้วย flex-wrap ผู้ใช้ยังกดลิงก์ได้ครบทุกอันบนมือถือ */
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 12px;
+  }
+
+  .hero .container {
+    flex-direction: column; /* จอมือถือ: ข้อความกับรูปเรียงบนล่างแทนซ้ายขวา */
+    text-align: center;
+  }
+
+  .hero-text p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr; /* จอมือถือ: การ์ดสินค้าเรียงคอลัมน์เดียว อ่านง่ายไม่บีบ */
+  }
+
+  .footer .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer .social-links {
+    justify-content: center;
+  }
+
+  .contact-info li {
+    text-align: left;
+  }
+
+  section {
+    padding: 56px 0; /* ลดระยะห่างบน-ล่างของ section บนจอเล็ก ไม่ให้ต้องเลื่อนยาวเกินไป */
+  }
+}

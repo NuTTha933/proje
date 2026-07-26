@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cafaa Unaii | เมนู</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Navbar เหมือนหน้าแรกทุกอย่าง เปลี่ยนแค่คลาส active ให้ตรงหน้าปัจจุบัน (เมนู) -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.svg" />
+        Cafaa Unaii
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">หน้าแรก</a></li>
+          <li><a href="menu.html" class="active">เมนู</a></li>
+          <li><a href="contact.html">ติดต่อเรา</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         PAGE HEADER — ชื่อหน้า + คำอธิบายสั้น 1 บรรทัด ตามโจทย์
+         ============================================================ -->
+    <section class="page-header">
+      <div class="container">
+        <h1>เมนูของเรา</h1>
+        <p>เครื่องดื่มและเบเกอรี่คัดสรร คั่วและอบใหม่ทุกวัน</p>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PRODUCT GRID — สินค้า 6 รายการ จัดด้วย CSS Grid 3 คอลัมน์
+         แต่ละใบมี รูป + ชื่อ + คำอธิบายสั้น + ราคา และมี hover effect (การ์ดลอยขึ้น + เงาเข้มขึ้น)
+         ============================================================ -->
+    <section class="products">
+      <div class="container">
+        <div class="product-grid">
+
+          <div class="product-card">
+            <img src="./images/Menu/เอสเพรสโซ่-ใส่อะไรบ้าง.jpg" alt="เอสเพรสโซ่ในถ้วยเล็กสีเข้ม" />
+            <div class="product-info">
+              <h3>เอสเพรสโซ่</h3>
+              <p>กาแฟช็อตเข้มข้น หอมกลิ่นเมล็ดคั่วเข้ม เสิร์ฟร้อน</p>
+              <div class="product-price"><span>ราคา</span><span>55 บาท</span></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <img src="./images/Menu/latta.jpg" alt="กาแฟลาเต้ในแก้วใสมีลายฟองนม" />
+            <div class="product-info">
+              <h3>คาเฟ่ ลาเต้</h3>
+              <p>เอสเพรสโซ่ผสมนมสตีมเนื้อเนียน หวานละมุน</p>
+              <div class="product-price"><span>ราคา</span><span>65 บาท</span></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <img src="./images/Menu/capu.jpg" alt="คาปูชิโน่มีฟองนมหนาโรยผงโกโก้" />
+            <div class="product-info">
+              <h3>คาปูชิโน่</h3>
+              <p>สัดส่วนกาแฟ นม และฟองนมลงตัว โรยหน้าด้วยผงโกโก้</p>
+              <div class="product-price"><span>ราคา</span><span>65 บาท</span></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <img src="./images/Menu/cold.jpg" alt="โคลด์บรูว์เย็นในแก้วทรงสูง" />
+            <div class="product-info">
+              <h3>โคลด์บรูว์</h3>
+              <p>กาแฟสกัดเย็น 12 ชั่วโมง รสชาติกลมกล่อม ไม่ขม</p>
+              <div class="product-price"><span>ราคา</span><span>70 บาท</span></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <img src="./images/Menu/ครัวซองต์เนยสด.jpg" alt="ครัวซองต์เนยสีทองอบใหม่" />
+            <div class="product-info">
+              <h3>ครัวซองต์เนยสด</h3>
+              <p>อบใหม่ทุกเช้า เนื้อชั้นกรอบนอกนุ่มใน หอมเนย</p>
+              <div class="product-price"><span>ราคา</span><span>59 บาท</span></div>
+            </div>
+          </div>
+
+          <div class="product-card">
+            <img src="./images/Menu/cake.jpg" alt="ชีสเค้กชิ้นสามเหลี่ยมบนจาน" />
+            <div class="product-info">
+              <h3>ชีสเค้กโฮมเมด</h3>
+              <p>เนื้อครีมชีสเข้มข้น ท็อปเบอร์รี่สดตัดรสหวานมัน</p>
+              <div class="product-price"><span>ราคา</span><span>89 บาท</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PROMOTION BANNER — แถบโปรโมชั่น พื้นหลังสีเด่น (สีเซจ) ตามโจทย์
+         ============================================================ -->
+    <section class="promo-banner">
+      <div class="container">
+        <p>โปรโมชั่นวันนี้: ซื้อเครื่องดื่ม 2 แก้ว แถมฟรี 1 แก้ว ทุกวันจันทร์–ศุกร์</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer เหมือนหน้าแรกทุกอย่าง -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-col">
+        <h4>Cafaa Unaii</h4>
+        <p>88/12 ถนนสุขใจ ตำบลบางลำพู อำเภอเมือง จังหวัดเชียงใหม่ 50000</p>
+        <p>โทร. 08-1234-5678</p>
+      </div>
+      <div class="footer-col">
+        <h4>ลิงก์ด่วน</h4>
+        <a href="index.html">หน้าแรก</a>
+        <a href="menu.html">เมนู</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </div>
+      <div class="footer-col">
+        <h4>ติดตามเรา</h4>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook ของร้าน">f</a>
+          <a href="#" aria-label="Instagram ของร้าน">ig</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Cafaa Unaii สงวนลิขสิทธิ์</p>
+  </footer>
+
+</body>
+</html>

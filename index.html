@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- meta viewport จำเป็นมากสำหรับ responsive: บอกมือถือให้แสดงผลตามความกว้างจอจริง ไม่ย่อทั้งหน้าลง -->
+  <title>Cafaa Unaii| หน้าแรก</title>
+
+  <!-- โหลด Google Fonts 2 ตัว: Fraunces (หัวข้อ) และ Work Sans (เนื้อหา) ตามข้อบังคับข้อ 5 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- เชื่อมไฟล์ CSS ภายนอก (external) ตัวเดียวที่ใช้ร่วมกันทั้ง 3 หน้า -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       1) NAVBAR (แถบเมนูบนสุด) — เหมือนกันทุกหน้า
+       ต้องมี: โลโก้/ชื่อร้านชิดซ้าย + ลิงก์ไปทั้ง 3 หน้าชิดขวา จัดด้วย Flexbox
+       ============================================================ -->
+  <header class="navbar">
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.svg" />
+        Cafaa Unaii
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active">หน้าแรก</a></li>
+          <li><a href="menu.html">เมนู</a></li>
+          <li><a href="contact.html">ติดต่อเรา</a></ไไไไli>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============================================================
+         2) HERO SECTION — ส่วนแรกที่ลูกค้าเห็นเมื่อเข้าเว็บ
+         มี h1 พาดหัว 1 บรรทัด, ข้อความรอง, ปุ่ม CTA ไปหน้าเมนู, รูปประกอบ
+         ============================================================ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-text">
+          <h1>เริ่มเช้าวันนี้ด้วยกาแฟแก้วโปรด</h1>
+          <p>
+            Cafaa Unaii คั่วเมล็ดกาแฟเองทุกสัปดาห์ เสิร์ฟพร้อมเบเกอรี่อบใหม่
+            ในบรรยากาศอบอุ่นที่นั่งสบาย เหมาะกับทุกช่วงเวลาของวัน
+          </p>
+          <!-- ปุ่ม Call to Action ลิงก์ไปหน้า menu.html ตามโจทย์ -->
+          <a href="menu.html" class="btn btn-primary">ดูเมนูของเรา</a>
+        </div>
+        <div class="hero-image">
+          <img src="images/home/cofaa.jpg" alt="กาแฟอันล่าง" width="500px" height="300" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         3) FEATURES SECTION — จุดเด่นของร้าน 3 การ์ด จัดด้วย CSS Grid
+         แต่ละใบมี ไอคอน + หัวข้อ + คำอธิบายสั้น ตามโจทย์
+         ============================================================ -->
+    <section class="features">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">ทำไมต้อง Cafaa Unai</span>
+          <h2>จุดเด่นของร้านเรา</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <img src="images/home/aaac.jpg" alt="ไอคอนเมล็ดกาแฟ" />
+            <h3>คั่วสดทุกสัปดาห์</h3>
+            <p>คัดเมล็ดกาแฟคุณภาพดี คั่วในปริมาณน้อยทุกสัปดาห์ เพื่อความสดใหม่ในทุกแก้ว</p>
+          </div>
+          <div class="feature-card">
+            <img src="images/home/leaf.jpg" alt="ไอคอนใบไม้สื่อถึงวัตถุดิบธรรมชาติ" />
+            <h3>วัตถุดิบออร์แกนิก</h3>
+            <p>เลือกใช้นมและไซรัปจากแหล่งปลอดสารเคมี ใส่ใจทุกขั้นตอนตั้งแต่ไร่ถึงแก้ว</p>
+          </div>
+          <div class="feature-card">
+            <img src="images/home/heart.jpg" alt="ไอคอนหัวใจสื่อถึงการบริการด้วยใจ" />
+            <h3>บริการด้วยใจ</h3>
+            <p>ทีมบาริสต้าพร้อมแนะนำเมนูที่ใช่สำหรับคุณ ในบรรยากาศเป็นกันเอง</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         4) TESTIMONIALS SECTION — รีวิวจากลูกค้า (สมมติ) อย่างน้อย 2 รีวิว
+         แต่ละรีวิวมี ข้อความ + ชื่อลูกค้า + รูปโปรไฟล์วงกลม
+         ============================================================ -->
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">เสียงจากลูกค้า</span>
+          <h2>รีวิวจากคนที่แวะมาดื่มกาแฟกับเรา</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p class="quote">"ลาเต้ที่นี่หอมมาก บรรยากาศร้านก็นั่งทำงานได้ทั้งวันเลย"</p>
+            <div class="testimonial-author">
+              <img src="images/comment/female.jpg" alt="รูปโปรไฟล์ลูกค้า" />
+              <div>
+                <strong>ใบเฟิร์น ส.</strong>
+                <span>ลูกค้าประจำ</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="quote">"ชอบที่ร้านคั่วเมล็ดเอง กาแฟดำรสชาติกลมกล่อมกว่าที่อื่นจริงๆ"</p>
+            <div class="testimonial-author">
+              <img src="images/comment/fee.jpg" alt="รูปโปรไฟล์ลูกค้า" />
+              <div>
+                <strong>ธนกร ว.</strong>
+                <span>คอกาแฟดำ</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="quote">"ครัวซองต์ร้อนๆ คู่กับคาปูชิโน่ คือคอมโบเช้าวันหยุดของฉันเลย"</p>
+            <div class="testimonial-author">
+              <img src="images/comment/images.png" alt="รูปโปรไฟล์ลูกค้า" />
+              <div>
+                <strong>อาคเน อ.</strong>
+                <span>สายเบเกอรี่</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         5) CTA SECTION — ชวนลูกค้ากดไปหน้าติดต่อเรา
+         ใช้พื้นหลังสีเข้ม (--color-espresso) ต่างจาก section อื่นให้เด่น
+         ============================================================ -->
+    <section class="cta-band">
+      <div class="container">
+        <h2>อยากจองโต๊ะหรือสอบถามเพิ่มเติม?</h2>
+        <p>ทีมงาน Cafaa Unaii ยินดีต้อนรับทุกวัน</p>
+        <a href="contact.html" class="btn btn-outline-light">ติดต่อเรา</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       6) FOOTER — เหมือนกันทุกหน้า
+       มี ชื่อร้าน/ที่อยู่/เบอร์โทร, ลิงก์โซเชียลอย่างน้อย 2 อัน, ข้อความลิขสิทธิ์
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-col">
+        <h4>Cafaa Unaii</h4>
+        <p>88/12 ถนนสุขใจ ตำบลบางลำพู อำเภอเมือง จังหวัดเชียงใหม่ 50000</p>
+        <p>โทร. 08-1234-5678</p>
+      </div>
+      <div class="footer-col">
+        <h4>ลิงก์ด่วน</h4>
+        <a href="index.html">หน้าแรก</a>
+        <a href="menu.html">เมนู</a>
+        <a href="contact.html">ติดต่อเรา</a>
+      </div>
+      <div class="footer-col">
+        <h4>ติดตามเรา</h4>
+        <div class="social-links">
+          <a href="#" aria-label="Facebook ของร้าน">f</a>
+          <a href="#" aria-label="Instagram ของร้าน">ig</a>
+        </div>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 Cafaa Unaii สงวนลิขสิทธิ์</p>
+  </footer>
+
+</body>
+</html>
